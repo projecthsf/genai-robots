@@ -1,0 +1,94 @@
+<idea-plugin>
+    <id>io.genai.robots</id>
+    <name>RobotsReader</name>
+    <version>0.1.0</version>
+    <vendor email="contact@genai.io.vn" url="https://genai.io.vn/">GenAI</vendor>
+
+    <description><![CDATA[
+        <p><b>See what your <code>robots.txt</code> actually does — in plain language, right next to the file.</b>
+        Open any <code>robots.txt</code> and RobotsReader adds a live preview that decodes it, instead of
+        leaving you to read raw <code>Disallow</code> lines.</p>
+        <ul>
+          <li><b>AI crawlers</b> — a table of known AI bots (ClaudeBot, GPTBot, Google-Extended, Bytespider,
+              CCBot…) showing which are <b>blocked</b> or <b>allowed</b>, by name or via <code>*</code>, with
+              notes (e.g. "Applebot-Extended is an AI-training token, not Applebot").</li>
+          <li><b>All rules</b> — every <code>User-agent</code> group summarized as <i>Allows everything</i>,
+              <i>Blocks everything</i>, or <i>Specific rules</i>.</li>
+          <li><b>Sitemaps</b> — listed and clickable.</li>
+          <li><b>Live</b> — the preview updates as you edit; it's a split editor (raw on the left, decoded on the right).</li>
+          <li><b>Any site</b> — <b>Tools ▸ Open robots.txt from Website…</b> fetches and decodes a live domain's file.</li>
+        </ul>
+        <p>Works in all JetBrains IDEs. Guidance only — well-behaved crawlers obey robots.txt; it is not a security control.</p>
+    ]]></description>
+
+    <change-notes><![CDATA[
+        <p><b>0.1.0</b> — first release: split-editor preview, AI-crawler table, plain-language rule
+        summaries, sitemaps, and fetch-by-domain.</p>
+    ]]></change-notes>
+
+    <depends>com.intellij.modules.platform</depends>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <!-- Language support: highlighting, structure, references, completion -->
+        <fileType
+                name="robots.txt"
+                implementationClass="io.genai.robots.lang.RobotsFileType"
+                fieldName="INSTANCE"
+                language="RobotsTxt"
+                fileNames="robots.txt"/>
+        <lang.parserDefinition
+                language="RobotsTxt"
+                implementationClass="io.genai.robots.lang.RobotsParserDefinition"/>
+        <lang.syntaxHighlighterFactory
+                language="RobotsTxt"
+                implementationClass="io.genai.robots.lang.RobotsSyntaxHighlighterFactory"/>
+        <lang.commenter
+                language="RobotsTxt"
+                implementationClass="io.genai.robots.lang.RobotsCommenter"/>
+        <lang.psiStructureViewFactory
+                language="RobotsTxt"
+                implementationClass="io.genai.robots.lang.structure.RobotsStructureViewFactory"/>
+        <lang.documentationProvider
+                language="RobotsTxt"
+                implementationClass="io.genai.robots.lang.RobotsDocumentationProvider"/>
+        <completion.contributor
+                language="RobotsTxt"
+                implementationClass="io.genai.robots.lang.RobotsCompletionContributor"/>
+        <psi.referenceContributor
+                language="RobotsTxt"
+                implementation="io.genai.robots.lang.RobotsReferenceContributor"/>
+
+        <!-- The decoded split-preview -->
+        <fileEditorProvider implementation="io.genai.robots.editor.RobotsEditorProvider"/>
+    </extensions>
+
+    <actions>
+        <action id="genai.robots.fetch"
+                class="io.genai.robots.action.FetchRobotsAction"
+                text="Open robots.txt from Website…"
+                description="Fetch and decode a live website's robots.txt">
+            <add-to-group group-id="ToolsMenu" anchor="last"/>
+        </action>
+        <action id="genai.robots.newFile"
+                class="io.genai.robots.action.CreateRobotsFileAction"
+                text="robots.txt"
+                description="Create a robots.txt with a guided builder"
+                icon="/icons/robotstxt.svg">
+            <add-to-group group-id="NewGroup" anchor="after" relative-to-action="NewFile"/>
+        </action>
+        <action id="genai.robots.newUserAgent"
+                class="io.genai.robots.action.NewUserAgentAction"
+                text="New User-agent…"
+                description="Insert a User-agent block (with a suggested crawler name)"
+                icon="/icons/robotstxt.svg">
+            <add-to-group group-id="EditorPopupMenu" anchor="first"/>
+        </action>
+        <action id="genai.robots.newSitemap"
+                class="io.genai.robots.action.NewSitemapAction"
+                text="New Sitemap…"
+                description="Insert a Sitemap line"
+                icon="/icons/sitemap.svg">
+            <add-to-group group-id="EditorPopupMenu" anchor="after" relative-to-action="genai.robots.newUserAgent"/>
+        </action>
+    </actions>
+</idea-plugin>

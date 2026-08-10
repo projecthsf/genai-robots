@@ -1,0 +1,16 @@
+# Gradle / build output
+.gradle/
+build/
+!gradle/wrapper/gradle-wrapper.jar
+
+# IntelliJ Platform Gradle plugin sandbox & caches
+.intellijPlatform/
+.kotlin/
+
+# IDE project files
+.idea/
+*.iml
+out/
+
+# Local config
+local.properties
