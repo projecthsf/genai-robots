@@ -10,9 +10,9 @@ object RobotsFileType : LanguageFileType(RobotsLanguage) {
 
     override fun getName(): String = "robots.txt"
     override fun getDescription(): String = "Robots exclusion file (robots.txt)"
-    // Empty on purpose: this type is matched by the exact file name "robots.txt", not an extension.
-    // A non-empty value (e.g. "txt") would make the Marketplace advertise this plugin for *.txt,
-    // nagging on every plain-text file. Filename-based advertising still works (like Dockerfile).
-    override fun getDefaultExtension(): String = ""
+    // "txt" so JetBrains Marketplace's plugin-advertiser indexes this file type and offers the plugin
+    // when a robots.txt is opened. An empty value leaves the plugin out of the "install a plugin"
+    // suggestion list entirely (verified against j-plugins/robots-txt-plugin, which uses "txt").
+    override fun getDefaultExtension(): String = "txt"
     override fun getIcon(): Icon = ICON
 }

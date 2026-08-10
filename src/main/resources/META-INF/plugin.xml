@@ -1,7 +1,7 @@
 <idea-plugin>
     <id>io.genai.robots</id>
     <name>RobotsReader</name>
-    <version>0.1.1</version>
+    <version>0.1.2</version>
     <vendor email="contact@genai.io.vn" url="https://genai.io.vn/">GenAI</vendor>
 
     <description><![CDATA[
@@ -22,6 +22,8 @@
     ]]></description>
 
     <change-notes><![CDATA[
+        <p><b>0.1.2</b> — the IDE now offers to install RobotsReader when you open a robots.txt
+        without it (plugin-advertiser discovery).</p>
         <p><b>0.1.1</b> — compatibility fix: requires 2024.2+ (the split-preview editor API is
         binary-incompatible with older builds).</p>
         <p><b>0.1.0</b> — first release: split-editor preview, plain-language rule summaries, sitemaps,
@@ -38,7 +40,8 @@
                 implementationClass="io.genai.robots.lang.RobotsFileType"
                 fieldName="INSTANCE"
                 language="RobotsTxt"
-                fileNames="robots.txt"/>
+                patterns="*robots.txt"
+                fileNamesCaseInsensitive="robots.txt"/>
         <lang.parserDefinition
                 language="RobotsTxt"
                 implementationClass="io.genai.robots.lang.RobotsParserDefinition"/>
