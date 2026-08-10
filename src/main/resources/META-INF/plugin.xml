@@ -1,7 +1,7 @@
 <idea-plugin>
     <id>io.genai.robots</id>
     <name>RobotsReader</name>
-    <version>0.1.2</version>
+    <version>0.1.3</version>
     <vendor email="contact@genai.io.vn" url="https://genai.io.vn/">GenAI</vendor>
 
     <description><![CDATA[
@@ -22,6 +22,8 @@
     ]]></description>
 
     <change-notes><![CDATA[
+        <p><b>0.1.3</b> — use a unique language id so RobotsReader can coexist with other robots.txt
+        plugins without a conflict.</p>
         <p><b>0.1.2</b> — the IDE now offers to install RobotsReader when you open a robots.txt
         without it (plugin-advertiser discovery).</p>
         <p><b>0.1.1</b> — compatibility fix: requires 2024.2+ (the split-preview editor API is
@@ -39,29 +41,29 @@
                 name="robots.txt"
                 implementationClass="io.genai.robots.lang.RobotsFileType"
                 fieldName="INSTANCE"
-                language="RobotsTxt"
+                language="GenAIRobotsTxt"
                 patterns="*robots.txt"
                 fileNamesCaseInsensitive="robots.txt"/>
         <lang.parserDefinition
-                language="RobotsTxt"
+                language="GenAIRobotsTxt"
                 implementationClass="io.genai.robots.lang.RobotsParserDefinition"/>
         <lang.syntaxHighlighterFactory
-                language="RobotsTxt"
+                language="GenAIRobotsTxt"
                 implementationClass="io.genai.robots.lang.RobotsSyntaxHighlighterFactory"/>
         <lang.commenter
-                language="RobotsTxt"
+                language="GenAIRobotsTxt"
                 implementationClass="io.genai.robots.lang.RobotsCommenter"/>
         <lang.psiStructureViewFactory
-                language="RobotsTxt"
+                language="GenAIRobotsTxt"
                 implementationClass="io.genai.robots.lang.structure.RobotsStructureViewFactory"/>
         <lang.documentationProvider
-                language="RobotsTxt"
+                language="GenAIRobotsTxt"
                 implementationClass="io.genai.robots.lang.RobotsDocumentationProvider"/>
         <completion.contributor
-                language="RobotsTxt"
+                language="GenAIRobotsTxt"
                 implementationClass="io.genai.robots.lang.RobotsCompletionContributor"/>
         <psi.referenceContributor
-                language="RobotsTxt"
+                language="GenAIRobotsTxt"
                 implementation="io.genai.robots.lang.RobotsReferenceContributor"/>
 
         <!-- The decoded split-preview -->
