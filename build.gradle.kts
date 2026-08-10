@@ -30,7 +30,9 @@ dependencies {
         if (useLocalIde) {
             local(ideaApp.absolutePath)
         } else {
-            intellijIdeaCommunity("2024.1")
+            // Must match sinceBuild (242): the split-preview editor API we use is 2024.2+, so
+            // compiling against 2024.1 fails. Used by CI (no local IDE) and other machines.
+            intellijIdeaCommunity("2024.2.5")
         }
     }
 }
@@ -77,7 +79,7 @@ intellijPlatform {
                 sinceBuild.set("242")
                 untilBuild.set("242.*")
             }
-            latest { types.set(listOf(IntelliJPlatformType.IntellijIdea)) }
+            latest { types.set(listOf(IntelliJPlatformType.IntellijIdeaCommunity)) }
         }
     }
 }
