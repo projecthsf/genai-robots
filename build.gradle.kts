@@ -10,7 +10,7 @@ plugins {
 }
 
 group = "io.genai.robots"
-version = "0.1.0"
+version = "0.1.1"
 
 repositories {
     mavenCentral()
@@ -52,7 +52,9 @@ tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach 
 intellijPlatform {
     pluginConfiguration {
         ideaVersion {
-            sinceBuild = "233"
+            // 242 (2024.2): TextEditorWithPreview became a Kotlin class then; its constructors are
+            // binary-incompatible with the 233–241 Java-era class (Marketplace verifier: Critical).
+            sinceBuild = "242"
             untilBuild = provider { null }
         }
     }
@@ -69,6 +71,12 @@ intellijPlatform {
             FailureLevel.INVALID_PLUGIN,
         ))
         ides {
+            // Verify the floor (242, where breakage would surface) plus the latest IDE.
+            select {
+                types.set(listOf(IntelliJPlatformType.IntellijIdeaCommunity))
+                sinceBuild.set("242")
+                untilBuild.set("242.*")
+            }
             latest { types.set(listOf(IntelliJPlatformType.IntellijIdea)) }
         }
     }

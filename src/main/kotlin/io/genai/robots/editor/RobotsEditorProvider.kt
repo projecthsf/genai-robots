@@ -19,6 +19,9 @@ class RobotsEditorProvider : FileEditorProvider, DumbAware {
     override fun createEditor(project: Project, file: VirtualFile): FileEditor {
         val textEditor = TextEditorProvider.getInstance().createEditor(project, file) as TextEditor
         val preview = RobotsPreviewFileEditor(project, file, textEditor.editor)
+        // TextEditorWithPreview became a Kotlin class in 2024.2; every constructor call from code
+        // compiled against a recent SDK binds to Kotlin's default-arg synthetic ctor, which does not
+        // exist in the 233–241 Java-era class. Hence sinceBuild=242 (see build.gradle).
         return TextEditorWithPreview(
             textEditor, preview, "RobotsReader",
             TextEditorWithPreview.Layout.SHOW_EDITOR_AND_PREVIEW

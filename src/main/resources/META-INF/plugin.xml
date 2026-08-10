@@ -1,7 +1,7 @@
 <idea-plugin>
     <id>io.genai.robots</id>
     <name>RobotsReader</name>
-    <version>0.1.0</version>
+    <version>0.1.1</version>
     <vendor email="contact@genai.io.vn" url="https://genai.io.vn/">GenAI</vendor>
 
     <description><![CDATA[
@@ -22,8 +22,11 @@
     ]]></description>
 
     <change-notes><![CDATA[
-        <p><b>0.1.0</b> — first release: split-editor preview, AI-crawler table, plain-language rule
-        summaries, sitemaps, and fetch-by-domain.</p>
+        <p><b>0.1.1</b> — compatibility fix: requires 2024.2+ (the split-preview editor API is
+        binary-incompatible with older builds).</p>
+        <p><b>0.1.0</b> — first release: split-editor preview, plain-language rule summaries, sitemaps,
+        language support (highlighting, structure, references, completion, hover docs), guided
+        builder, and fetch-by-domain.</p>
     ]]></change-notes>
 
     <depends>com.intellij.modules.platform</depends>
