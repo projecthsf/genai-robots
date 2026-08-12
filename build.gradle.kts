@@ -10,7 +10,7 @@ plugins {
 }
 
 group = "io.genai.robots"
-version = "0.1.3"
+version = "0.1.4"
 
 repositories {
     mavenCentral()
